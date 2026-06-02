@@ -41,18 +41,23 @@ soffice --headless --convert-to png --outdir <output-dir> <input.pptx>
 
 > このスライドPNGを検査する。以下の観点で**問題点を列挙**する:
 >
-> 1. テキストが不自然に折り返されていないか
+> 1. テキストが不自然に折り返されていないか（CJK禁則含む）
 > 2. テキスト同士、テキストと画像の重なりはないか
 > 3. 余白の偏り・過不足はないか
 > 4. フォントサイズが小さすぎて判読困難でないか
 > 5. 画像のアスペクト比が歪んでいないか
 > 6. 連続スライド間のレイアウト一貫性は保たれているか
-> 7. 背景とテキストのコントラストは十分か
+> 7. 背景とテキストのコントラストは十分か（4.5:1 / 大文字3:1・四捨五入しない、図形は1.4.11）
+> 8. 色だけで区別していないか（WCAG 1.4.1）
+> 9. チャートがミスリードしていないか（基線0・単位・Lie Factor）
+> 10. ~3秒のグランステスト（視覚の焦点が1つか）
 
 ### Step 3: 問題レポート生成
 
 [review-report-template](assets/review-report-template.md) に従い、スライド番号ごとに問題を整理する。
-各問題には [severity-criteria](references/severity-criteria.md) に基づくseverityを付与する。
+各問題には [severity-criteria](references/severity-criteria.md) に基づくseverityを付与し、**スライド番号＋要素＋観察状態**を引用する。
+
+**リリースゲート（最悪値）**: error が1つでもあれば **FAIL（発表不可）**、error=0でwarningあり→直してから、infoのみ→PASS。平均的な集計はしない（severityの定義上、error は他スライドで相殺できないため）。
 
 ### Step 4: 修正提案
 

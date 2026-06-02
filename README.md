@@ -6,8 +6,8 @@ A Claude Code skill that verifies slide visual quality from PDF/PNG output. Dete
 
 - **PNG generation**: Converts slide source (Marp Markdown, PPTX, etc.) to PNG images for inspection
 - **Visual checks**: Detects text wrapping issues, element collision, insufficient/excessive margins, color contrast problems
-- **Severity classification**: Categorizes issues by severity (Critical / Major / Minor) for prioritized fixing
-- **Report generation**: Outputs a structured review report with screenshots and recommended fixes
+- **Severity classification**: Categorizes issues by severity (error / warning / info) with a worst-of release gate (any error → FAIL)
+- **Report generation**: Outputs a structured review report — each issue cites the PNG location (slide # + element + observed state) plus a recommended fix
 
 ## When to use
 
