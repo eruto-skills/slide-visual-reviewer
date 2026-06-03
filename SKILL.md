@@ -102,11 +102,21 @@ node scripts/maintain/skill-runner.js slide-visual-reviewer "content/publish/sli
 node scripts/maintain/skill-runner.js slide-visual-reviewer "content/publish/slides/example/" --dry-run
 ```
 
-## Self-Improvement
+## 自己改善ループ（指摘 → ルール → 横展開 → 再発防止）
 
-- **Feedback Capture**: ユーザーFBやレビューで検出された問題を汎用的な検査観点に抽象化する（Step 6で実装済み）
-- **Checklist Evolution**: 抽出した観点を [slide-visual-checklist](references/slide-visual-checklist.md) に追記する
-- **Trigger**: テキスト折り返し問題、要素の被り、余白バランス崩れ、コントラスト不足
+指摘をその場の修正で終わらせない:
+
+1. **判断**: 指摘が「一般化できるパターン」か「その場限りの好み」か。**パターンだけルール化**する（肥大化防止）。
+2. **ルール更新**: パターンなら [slide-visual-checklist](references/slide-visual-checklist.md) / [common-visual-fixes](references/common-visual-fixes.md) を抽象化して更新（Step 6）。
+3. **横展開（全スライド再走査）**: 更新したルールで**全スライドを再検査**し、同種の箇所をすべて直す（silent な見逃し防止）。
+4. **再発防止**: 成果物側の問題は通常どおり是正。**レビュアー自身の誤り**（指摘の取り違え・誤判定）は下の「よくある誤読・落とし穴」に記録し次回最初に確認。
+- **Trigger**: テキスト折り返し（→/CJK禁則）、要素の被り、余白/下方の張り付き、コントラスト、色のみ依存、チャートの誠実さ。
+
+## よくある誤読・落とし穴（次回まずチェック）
+
+- **「下に行きすぎ」≠「下の余白を埋める」**: 赤文字Punch等が下に離れている指摘は、本文の直下に**上詰め**せよの意味。下側に余白が残るのは問題ない（埋めにいかない）。タイトル位置は固定。
+- **隅の画像のキャプション忘れ**: 右上等の小画像には何の画像か分かるキャプションを付ける（大きく見せたいなら半透明 0.2〜0.3 で背景化でも可）。
+- **絶対配置の結論が本文に重なる**: Punch の `bottom` を上げすぎると本文に被る。確実に本文直下へ置きたいなら、絶対配置でなくフロー配置にする。
 
 ## Cross-Skill Integration
 
